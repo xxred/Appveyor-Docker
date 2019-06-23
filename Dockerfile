@@ -8,7 +8,9 @@ RUN apt update
 RUN apt install libcap2-bin -y
 COPY --from=download /tmp/appveyor-server.deb /tmp/
 RUN dpkg -i /tmp/appveyor-server.deb
-RUN rm -f /tmp/appveyor-server.deb
+RUN cd /tmp && rm -f *
 WORKDIR /opt/appveyor/server
 EXPOSE 80 443
+VOLUME [ "/etc/opt/appveyor/server" ]
+VOLUME [ "/var/opt/appveyor/server" ]
 ENTRYPOINT [ "./appveyor-server" ]
